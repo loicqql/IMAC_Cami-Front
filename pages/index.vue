@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtWelcome />
+    <enterCode />
   </div>
 </template>
 
