@@ -1,0 +1,15 @@
+@mixin font-size($sizeValue) {
+  font-size: calc($sizeValue / 16) + rem;
+}
+
+@mixin d-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin background-img($file) {
+  background-position: center;
+  background-size: cover;
+  background-image: url('~assets/' + $file);
+}
