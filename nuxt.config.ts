@@ -21,5 +21,14 @@ export default defineNuxtConfig({
         }
       }
     }
+  },
+  runtimeConfig: {
+    apiBaseUrl: process.env.API_BASE_URL,
+    apiKey: process.env.API_KEY,
+    backendBaseUrl: process.env.BACKEND_BASE_URL,
+
+    public: {
+      base_url_img: 'https://image.tmdb.org/t/p'
+    }
   }
 })
