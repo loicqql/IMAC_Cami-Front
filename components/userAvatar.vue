@@ -1,34 +1,42 @@
 <template>
-  <div class="avatar">
+  <div class="user-avatar">
     <img v-if="avatar" :src="avatar">
     <p v-else>Loading</p>
   </div>
 </template>
 
 <script setup>
+import { computed } from "vue";
 
-import { ref, onMounted } from "vue";
-
-const avatar = ref(false);
-
-onMounted(() => {
-  let img = 1;
-  avatar.value = `/avatars/${img}.png`;
+const props = defineProps({
+  img: {
+    type: Number,
+    required: true,
+  }
 });
+
+const avatar = computed(() => {
+  return `/avatars/${props.img}.png`;
+})
 
 </script>
 
 <style lang="scss" scoped>
 
-.avatar {
+.user-avatar {
   width: 100px;
   height: 100px;
   @include d-flex-center;
   border-radius: 100%;
   overflow: hidden;
+  background-color: #f2f2f2;
 
   img {
     width: 100%;
+  }
+
+  p {
+    @include font-size(10);
   }
 }
 
