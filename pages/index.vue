@@ -38,12 +38,14 @@
     if(val.value != '') {
       results.value = await $fetch('/api/tmdb/search/movie', {params : {query : val.value}})
     }else {
-      results.value = await getBackendMovies();
+      let data = await getBackendMovies();
+      results.value = data.movies
     }
   });
 
   onMounted(async () => {
-    results.value = await getBackendMovies();
+    let data = await getBackendMovies();
+    results.value = data.movies
   })
 
 </script>

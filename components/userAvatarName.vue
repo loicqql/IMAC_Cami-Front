@@ -1,6 +1,6 @@
 <template>
   <div class="user-avatar-name">
-    <userAvatar class="user-avatar-name__avatar" :img="user.img" />
+    <userAvatar class="user-avatar-name__avatar" />
     <p>{{ user.name }}</p>
   </div>
 </template>

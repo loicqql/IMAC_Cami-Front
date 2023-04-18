@@ -30,5 +30,15 @@ export default defineNuxtConfig({
     public: {
       base_url_img: 'https://image.tmdb.org/t/p'
     }
+  },
+  modules: [
+    'nuxt-socket-io'
+  ],
+  io: {
+    sockets: [{
+      name: 'main',
+      default: true,
+      url: 'http://localhost:5000'
+    }]
   }
 })

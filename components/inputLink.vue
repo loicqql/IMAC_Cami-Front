@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink v-if="native" class="link" :to="to">
+  <NuxtLink v-if="!native" class="link" :to="to">
     {{ text }}
   </NuxtLink>
   <a v-else class="link" :href="to" :target="blank ? '_blank' : ''">
@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-defineProp({
+defineProps({
   text: {
     type: String,
     required: true
@@ -23,7 +23,7 @@ defineProp({
   },
   native: {
     type: Boolean,
-    default: true
+    default: false
   }
 })
 </script>
