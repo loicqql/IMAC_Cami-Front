@@ -19,9 +19,9 @@ const props = defineProps({
 
 const iconClasses = computed(() => {
   if (props.theme) {
-    return ['material-icons-' + props.theme]
+    return ['material-symbols-' + props.theme]
   }
-  return ['material-icons'];
+  return ['material-symbols-outlined'];
 })
 
 </script>

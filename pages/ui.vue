@@ -1,12 +1,12 @@
 <template>
   <div class="ui">
-    <!-- <inputRange v-model:val="valR" :min="1" :max="9" />
+    <inputRange v-model:val="valR" :min="1" :max="9" />
     {{ valR }}
     <inputSelect v-model:val="valS" />
     {{ valS }}
 
     <inputCheckbox v-model:val="valC" name="check" />
-    {{ valC }} -->
+    {{ valC }}
 
     <userAvatar />
 
@@ -21,54 +21,63 @@
     <button @click="connect">Connect</button>
     <button @click="create">Create</button>
 
-    <inputLink v-if="code > 999" :to="`/play/${code}`" text="Play" />
+    <buttonSubmit label="Jouer" :icon="{ name: 'play_arrow', theme: 'outlined' }" />
+
+    <inputLink v-if="code > 999" :to="`/lobby/${code}`" text="Play" />
     <input type="text" v-model="code">
 
-  </div>
+    <enterCode />
 
+    <!-- <enterUsername class="enterUsername" /> -->
+
+  </div>
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
-  const valR = ref(4);
-  const valS = ref('');
-  const valC = ref(false);
-  const code = ref();
-  const gameFinalScoreTest = ref(false);
+const valR = ref(4);
+const valS = ref('');
+const valC = ref(false);
+const code = ref();
+const gameFinalScoreTest = ref(false);
 
-  const players = ref([
-    {
-      user: {name: 'Paul', img: 5},
-      score: 758
-    },
-    {
-      user: {name: 'Joe', img: 8},
-      score: 500
-    },
-    {
-      user: {name: 'Ben', img: 2},
-      score: 1000
-    }
-  ]);
-
-
-  async function create() {
-    const socket = useSocket();
-    console.log(await socket.emitP('create', 'Joe'));
+const players = ref([
+  {
+    user: { name: 'Paul', img: 5 },
+    score: 758
+  },
+  {
+    user: { name: 'Joe', img: 8 },
+    score: 500
+  },
+  {
+    user: { name: 'Ben', img: 2 },
+    score: 1000
   }
+]);
 
-  onMounted(() => {
-    setTimeout(() => {
-      gameFinalScoreTest.value = true;
-    }, 1000);
-  })
+
+async function create() {
+  const socket = useSocket();
+  console.log(await socket.emitP('create', { username: 'Joe', avatarId: 1 }));
+}
+
+onMounted(() => {
+  setTimeout(() => {
+    gameFinalScoreTest.value = true;
+  }, 1000);
+})
 
 </script>
 
 <style lang="scss" scoped>
-  .ui {
-    padding: 50px;
-    width: 100%;
-  }
+.ui {
+  padding: 50px;
+  width: 100%;
+}
+
+.enterUsername {
+  margin: 50px;
+}
 </style>

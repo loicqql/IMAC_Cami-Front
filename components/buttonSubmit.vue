@@ -41,6 +41,7 @@ const padding = computed(() => {
   font-weight: $semi-bold-font-weight;
   overflow: hidden;
   cursor: pointer;
+
   &__container {
     background-color: $y-primary;
     height: 47px;
@@ -51,25 +52,31 @@ const padding = computed(() => {
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0px 7px 0px 0px $y-secondary-3;
-		&:active {
-			transform: translateY(7px);
-			box-shadow: none;
-		}
+
+    &:active {
+      transform: translateY(7px);
+      box-shadow: none;
+    }
   }
-  &__text, &__icon {
+
+  &__text,
+  &__icon {
     color: $text;
     transition: 0.15s;
-		user-select: none;
+    user-select: none;
   }
+
   &__text {
     @include font-size(20);
     font-style: italic;
     font-weight: $bold-font-weight;
   }
+
   &__icon {
     @include font-size(25);
     padding-left: 0.2rem;
   }
+
   &.disabled {
     opacity: 0.5;
   }

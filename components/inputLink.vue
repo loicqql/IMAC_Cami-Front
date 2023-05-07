@@ -45,6 +45,7 @@ defineProps({
     transition: 0.2s ease-in-out;
     z-index: -1;
   }
+
   &:hover::before {
     width: 100%;
   }
