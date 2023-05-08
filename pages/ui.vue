@@ -60,7 +60,9 @@ const players = ref([
 
 async function create() {
   const socket = useSocket();
-  console.log(await socket.emitP('create', { username: 'Joe', avatarId: 1 }));
+  let code = await socket.emitP('create');
+  localStorage.setItem(code, 'host');
+  navigateTo(`/lobby/${code}`);
 }
 
 onMounted(() => {

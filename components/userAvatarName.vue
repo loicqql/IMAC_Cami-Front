@@ -1,6 +1,7 @@
 <template>
   <div class="user-avatar-name">
-    <userAvatar class="user-avatar-name__avatar" />
+    <userAvatar v-if="!user.avatarId" class="user-avatar-name__avatar" />
+    <userAvatar v-else class="user-avatar-name__avatar" :img="parseInt(user.avatarId)" />
     <p>{{ user.name }}</p>
   </div>
 </template>
@@ -17,7 +18,6 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-
 .user-avatar-name {
   display: flex;
   justify-content: space-between;
@@ -35,5 +35,4 @@ const props = defineProps({
     margin-right: 20px;
   }
 }
-
 </style>
