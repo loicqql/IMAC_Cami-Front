@@ -1,5 +1,5 @@
 <template>
-  <div class="button" @click="handleClick">
+  <div :class="['button', disabled ? 'button--disabled' : '']" @click="handleClick">
     <div class="button__container" :style="padding">
       <span v-if="label" class="button__text">{{ label }}</span>
       <icon v-if="icon" class="button__icon" :name="icon.name" :theme="icon.theme" />
@@ -18,13 +18,19 @@ const props = defineProps({
   icon: {
     type: Object,
     required: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
 
 const emit = defineEmits(['click'])
 
 function handleClick() {
-  emit('click');
+  if (!props.disabled) {
+    emit('click');
+  }
 }
 
 const padding = computed(() => {
@@ -41,6 +47,10 @@ const padding = computed(() => {
   font-weight: $semi-bold-font-weight;
   overflow: hidden;
   cursor: pointer;
+
+  &--disabled {
+    cursor: default;
+  }
 
   &__container {
     background-color: $y-primary;
