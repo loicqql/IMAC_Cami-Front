@@ -3,6 +3,9 @@
 
     <div :class="['play__game', players ? 'play__game--gameboard-visible' : '']">
 
+      {{ questionNumber }}
+      {{ numberOfQuestions }}
+
       <div class="play__wrapper">
         <div :class="['play__loading', question ? '' : 'play__loading--visible']">
           <p>Question Todo</p>
@@ -34,6 +37,7 @@ const route = useRoute();
 const question = ref();
 const answer = ref();
 const questionNumber = ref(0);
+const numberOfQuestions = ref(null);
 const notification = ref();
 const players = ref();
 
@@ -60,14 +64,18 @@ const host = ref(false);
 
 // host
 function startQuestion(_questionNumber) {
-  question.value = null;
-  answer.value = null;
   const socket = useSocket();
-  socket.emit('clear', { code: route.params.code })
-  setTimeout(() => socket.emit('startQuestion', { code: route.params.code, questionNumber: _questionNumber }), 2000);
-  timeoutEndQuestion.value = setTimeout(() => {
-    socket.emit('endQuestion', { code: route.params.code, questionNumber: _questionNumber });
-  }, time.value);
+  if (_questionNumber < (numberOfQuestions.value == null ? 999 : numberOfQuestions.value)) {
+    question.value = null;
+    answer.value = null;
+    socket.emit('clear', { code: route.params.code });
+    setTimeout(() => socket.emit('startQuestion', { code: route.params.code, questionNumber: _questionNumber }), 2000);
+    timeoutEndQuestion.value = setTimeout(() => {
+      socket.emit('endQuestion', { code: route.params.code, questionNumber: _questionNumber });
+    }, time.value);
+  } else {
+    socket.emit('startLeaderBoard', { code: route.params.code });
+  }
 }
 
 // host
@@ -92,6 +100,7 @@ onMounted(() => {
   socket.on('question', (data) => {
     question.value = data.question;
     questionNumber.value = data.questionNumber;
+    numberOfQuestions.value = data.numberOfQuestions;
   });
 
   socket.on('notification', (data) => {
@@ -106,9 +115,14 @@ onMounted(() => {
     clearTimeout(timeoutEndQuestion.value);
     answer.value = data;
   });
+
   socket.on('clear', () => {
     question.value = null;
     answer.value = null;
+  });
+
+  socket.on('startLeaderBoard', () => {
+    navigateTo(`/leaderboard/${route.params.code}`);
   });
 })
 </script>

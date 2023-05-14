@@ -1,24 +1,31 @@
 <template>
   <div class="game-final-score">
     <div class="game-final-score__column">
-      <userAvatar />
+      <userAvatar :img="parseInt(sortPlayers[2].user.avatarId)" />
       <p>{{ sortPlayers[2].score }}</p>
-      <div class="game-final-score__shape"><p>{{ sortPlayers[2].user.name }}</p></div>
+      <div class="game-final-score__shape">
+        <p>{{ sortPlayers[2].user.name }}</p>
+      </div>
     </div>
     <div class="game-final-score__column">
-      <userAvatar />
+      <userAvatar :img="parseInt(sortPlayers[0].user.avatarId)" />
       <p>{{ sortPlayers[0].score }}</p>
-      <div class="game-final-score__shape"><p>{{ sortPlayers[0].user.name }}</p></div>
+      <div class="game-final-score__shape">
+        <p>{{ sortPlayers[0].user.name }}</p>
+      </div>
     </div>
     <div class="game-final-score__column">
-      <userAvatar />
+      <userAvatar :img="parseInt(sortPlayers[1].user.avatarId)" />
       <p>{{ sortPlayers[1].score }}</p>
-      <div class="game-final-score__shape"><p>{{ sortPlayers[1].user.name }}</p></div>
+      <div class="game-final-score__shape">
+        <p>{{ sortPlayers[1].user.name }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+// IF PLAYERS < 3
 
 import { computed } from 'vue';
 
@@ -31,14 +38,13 @@ const props = defineProps({
 
 const sortPlayers = computed(() => {
   return props.players.sort((a, b) => {
-    return a.score < b.score;
+    return a.score < b.score ? 1 : -1;
   })
 })
 
 </script>
 
 <style lang="scss" scoped>
-
 .game-final-score {
   padding: 20px 30px;
   display: flex;
@@ -52,6 +58,7 @@ const sortPlayers = computed(() => {
     @include d-flex-center;
     flex-flow: column nowrap;
     width: 25%;
+
     &>p {
       margin-top: 13px;
       @include font-size(25);
@@ -60,6 +67,7 @@ const sortPlayers = computed(() => {
 
     &:nth-of-type(1) {
       transform: translateY(100%);
+
       .game-final-score__shape {
         background-color: #1dd1a1;
       }
@@ -67,6 +75,7 @@ const sortPlayers = computed(() => {
 
     &:nth-of-type(2) {
       transform: translateY(100%);
+
       .game-final-score__shape {
 
         background-color: #ff6b6b;
@@ -75,6 +84,7 @@ const sortPlayers = computed(() => {
 
     &:nth-of-type(3) {
       transform: translateY(100%);
+
       .game-final-score__shape {
         background-color: #54a0ff;
       }
@@ -92,6 +102,7 @@ const sortPlayers = computed(() => {
     width: 100%;
     min-height: 800px;
     border-radius: 10px 10px 0 0;
+
     p {
       color: #fff;
       @include font-size(30);
@@ -104,6 +115,7 @@ const sortPlayers = computed(() => {
 
     animation: 0.15s horizontal-shaking-1;
     animation-iteration-count: 17;
+
     .game-final-score__column {
 
       &:nth-of-type(1) {
@@ -125,29 +137,68 @@ const sortPlayers = computed(() => {
 }
 
 @keyframes horizontal-shaking-1 {
-  0% { transform: translateX(0) }
-  25% { transform: translateX(2px) }
-  50% { transform: translateX(-2px) }
-  75% { transform: translateX(2px) }
-  100% { transform: translateX(0) }
+  0% {
+    transform: translateX(0)
+  }
+
+  25% {
+    transform: translateX(2px)
+  }
+
+  50% {
+    transform: translateX(-2px)
+  }
+
+  75% {
+    transform: translateX(2px)
+  }
+
+  100% {
+    transform: translateX(0)
+  }
 }
 
 @keyframes horizontal-shaking-2 {
-  0% { transform: translateX(0) }
-  25% { transform: translateX(7px) }
-  50% { transform: translateX(-7px) }
-  75% { transform: translateX(7px) }
-  100% { transform: translateX(0) }
+  0% {
+    transform: translateX(0)
+  }
+
+  25% {
+    transform: translateX(7px)
+  }
+
+  50% {
+    transform: translateX(-7px)
+  }
+
+  75% {
+    transform: translateX(7px)
+  }
+
+  100% {
+    transform: translateX(0)
+  }
 }
 
 @keyframes horizontal-shaking-3 {
-  0% { transform: translateX(0) }
-  25% { transform: translateX(4px) }
-  50% { transform: translateX(-4px) }
-  75% { transform: translateX(4px) }
-  100% { transform: translateX(0) }
+  0% {
+    transform: translateX(0)
+  }
+
+  25% {
+    transform: translateX(4px)
+  }
+
+  50% {
+    transform: translateX(-4px)
+  }
+
+  75% {
+    transform: translateX(4px)
+  }
+
+  100% {
+    transform: translateX(0)
+  }
 }
-
-
-
 </style>
