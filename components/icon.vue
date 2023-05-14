@@ -1,7 +1,7 @@
 <template>
-  <i :class="iconClasses">
+  <span :class="iconClasses">
     {{ name }}
-  </i>
+  </span>
 </template>
 
 <script setup>

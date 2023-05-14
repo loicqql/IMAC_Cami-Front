@@ -87,7 +87,8 @@ const padding = computed(() => {
     padding-left: 0.2rem;
   }
 
-  &.disabled {
+  &--disabled {
+    pointer-events: none;
     opacity: 0.5;
   }
 }

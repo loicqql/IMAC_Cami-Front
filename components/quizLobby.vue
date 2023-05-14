@@ -1,29 +1,42 @@
 
 <template>
-  <div class="play">
+  <div class="lobby">
 
-    <div class="lobby">
-      <div>
-        <userAvatar />
-        {{ username }}
-        {{ ready }}
+    <div class="lobby__players">
+      <div class="lobby__wrapper">
+        <div :class="['lobby__player', ready ? 'lobby__player--ready' : '']">
+          <div>
+            <userAvatar />
+            <p>{{ username }}</p>
+          </div>
+          <icon :class="['lobby__icon', ready ? 'lobby__icon--ready' : '']" name="done" />
+          <!-- <p>{{ ready }}</p> -->
+        </div>
+        <div :class="['lobby__player', player.ready ? 'lobby__player--ready' : '']" v-for="player in players"
+          :key="player.id">
+          <div>
+            <userAvatar :img="parseInt(player.user.avatarId)" />
+            <p>{{ player.user.name }}</p>
+          </div>
+          <icon :class="['lobby__icon', player.ready ? 'lobby__icon--ready' : '']" name="done" />
+          <!-- <p>{{ player.ready }}</p> -->
+        </div>
       </div>
-      <div v-for="player in players" :key="player.id">
-        <!-- {{ player.user.name }} avatar -->
-        <userAvatar :img="parseInt(player.user.avatarId)" />
-        {{ player.user.name }}
-        {{ player.ready }}
-      </div>
+      <buttonSubmit class="lobby__button" label="Ready" :icon="{ name: 'play_arrow', theme: 'outlined' }"
+        @click="handleReady" :disabled="Number.isInteger(countdown) ? true : false" />
 
-      <buttonSubmit label="Ready" :icon="{ name: 'play_arrow', theme: 'outlined' }" @click="handleReady" />
+      <div class="lobby__countdown" v-if="countdown">
+        {{ countdown }}
+      </div>
+    </div>
+
+    <div class="lobby__link">
 
     </div>
 
-    {{ countdown }}
-
-    <!-- TO DO disable button ready when everyone is ready -->
-
   </div>
+
+  <!-- TO DO disable button ready when everyone is ready -->
 </template>
 
 <script setup>
@@ -91,6 +104,96 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .lobby {
-  margin: 100px;
+  display: flex;
+  background-color: $gray;
+  height: 100vh;
+
+  &__players {
+    position: relative;
+    padding: 20px;
+    width: calc(100% - 14px);
+    height: calc(100% - 20px);
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 10px 7px;
+    @include d-flex-center;
+    flex-flow: column nowrap;
+  }
+
+  &__wrapper {
+    width: 800px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: row wrap;
+    overflow-y: scroll;
+    height: 500px;
+    margin-bottom: 60px;
+  }
+
+  &__player {
+    position: relative;
+    margin: 10px;
+    padding: 20px;
+    width: calc(33.3% - 30px);
+    border: 2px solid $y-secondary;
+    transition: 0.3s ease-in-out;
+    border-radius: 10px;
+    @include d-flex-center;
+    justify-content: space-around;
+
+    &>div {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+
+      p {
+        margin-top: 10px;
+        @include font-size(18);
+        font-weight: $semi-bold-font-weight;
+      }
+    }
+
+    &--ready {
+      background-color: $y-secondary;
+    }
+  }
+
+  &__button {
+    width: 300px;
+  }
+
+  &__icon {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+
+    &--ready {
+      opacity: 1;
+    }
+  }
+
+  &__link {
+    width: calc(25% - 14px);
+    margin: 10px 7px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+
+  &__countdown {
+    background-color: rgba($color: #fff, $alpha: 0.5);
+    @include d-flex-center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include font-size(100);
+    opacity: 0.9;
+    font-weight: $bold-font-weight;
+    color: $y-primary;
+  }
 }
 </style>
