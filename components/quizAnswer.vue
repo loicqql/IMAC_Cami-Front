@@ -2,7 +2,7 @@
   <div class="quiz-answer">
     <div :class="['quiz-answer__img', answer ? 'quiz-answer__img--answer' : '']">
       <p>{{ answer }}</p>
-      <img :src="backdrop" />
+      <img v-if="backdrop" :src="`https://image.tmdb.org/t/p/w1280${backdrop}`" />
     </div>
     <quizSearch @answer="id => emit('answer', id)" />
   </div>

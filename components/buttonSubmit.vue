@@ -43,6 +43,7 @@ const padding = computed(() => {
 
 <style scoped lang="scss">
 .button {
+  padding-bottom: 8px;
   transition: 0.2s;
   font-weight: $semi-bold-font-weight;
   overflow: hidden;

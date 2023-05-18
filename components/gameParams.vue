@@ -1,0 +1,95 @@
+<template>
+  <div class="game-params">
+    <div class="game-params__create">
+      <h1>Créer un quiz</h1>
+      <div>
+        <h2>Nombre de questions</h2>
+        <!-- themes -->
+        <inputRange class="game-params__input-range" v-model:val="nbQuestions" :min="1" :max="15" />
+        <inputGenres @filterGenres="(e) => filterGenres = e" />
+        <div class="game-params__submit">
+          <loader :class="['game-params__loader', launched ? '' : 'invisible']" />
+          <buttonSubmit label="Lancer" :icon="{ name: 'play_arrow', theme: 'outlined' }" @click="create" />
+        </div>
+        {{ filterGenres }}
+      </div>
+    </div>
+    <div class="game-params__join">
+      <enterCode />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const nbQuestions = ref(6);
+const launched = ref(false);
+const filterGenres = ref([]);
+
+async function create() {
+  const socket = useSocket();
+  launched.value = true;
+  let code = await socket.emitP('create', { nbQuestions: nbQuestions.value, filterGenres: filterGenres.value });
+  localStorage.setItem(code, 'host');
+  navigateTo(`/lobby/${code}`);
+}
+
+</script>
+
+<style lang="scss" scoped>
+.game-params {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  @include d-flex-center;
+  overflow: hidden;
+
+  &__create {
+    width: 67%;
+    height: 100%;
+    padding: 40px 50px;
+
+    &>div {
+      padding: 0 20px;
+    }
+
+    h1 {
+      @include font-size(25);
+      font-weight: $semi-bold-font-weight;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-weight: $medium-font-weight;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__input-range {
+    margin: 30px 0;
+  }
+
+  &__submit {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+
+    div {
+      margin-left: 15px;
+    }
+  }
+
+  &__join {
+    width: 33%;
+    height: 100%;
+    border-left: 2px solid $y-secondary;
+
+    &>div {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+</style>
