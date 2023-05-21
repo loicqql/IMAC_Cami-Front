@@ -17,16 +17,16 @@ const emit = defineEmits(['filterGenres']);
 
 const all = ref(true);
 
-const genres = ref([
-  { name: "Action", id: 1, selected: false },
-  { name: "Animation", id: 2, selected: false },
-  { name: "Aventure", id: 3, selected: false },
-  { name: "Comédie", id: 4, selected: false },
-  { name: "Crime", id: 5, selected: false },
-  { name: "Histoire", id: 6, selected: false },
-  { name: "Guerre", id: 7, selected: false },
-  { name: "Western", id: 8, selected: false },
-  { name: "Horreur", id: 9, selected: false }
+const genres = ref([ //{{base_url}}/genre/movie/list
+  { name: "Action", id: 28, selected: false },
+  { name: "Animation", id: 16, selected: false },
+  { name: "Aventure", id: 12, selected: false },
+  { name: "Comédie", id: 35, selected: false },
+  { name: "Crime", id: 80, selected: false },
+  { name: "Histoire", id: 36, selected: false },
+  { name: "Guerre", id: 10752, selected: false },
+  { name: "Western", id: 37, selected: false },
+  { name: "Horreur", id: 27, selected: false }
 ]);
 
 function handleClick(index) {

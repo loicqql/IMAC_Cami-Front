@@ -1,20 +1,20 @@
 <template>
   <div class="game-final-score">
-    <div class="game-final-score__column">
+    <div v-if="sortPlayers[2]" class="game-final-score__column">
       <userAvatar :img="parseInt(sortPlayers[2].user.avatarId)" />
       <p>{{ sortPlayers[2].score }}</p>
       <div class="game-final-score__shape">
         <p>{{ sortPlayers[2].user.name }}</p>
       </div>
     </div>
-    <div class="game-final-score__column">
+    <div v-if="sortPlayers[0]" class="game-final-score__column">
       <userAvatar :img="parseInt(sortPlayers[0].user.avatarId)" />
       <p>{{ sortPlayers[0].score }}</p>
       <div class="game-final-score__shape">
         <p>{{ sortPlayers[0].user.name }}</p>
       </div>
     </div>
-    <div class="game-final-score__column">
+    <div v-if="sortPlayers[1]" class="game-final-score__column">
       <userAvatar :img="parseInt(sortPlayers[1].user.avatarId)" />
       <p>{{ sortPlayers[1].score }}</p>
       <div class="game-final-score__shape">
