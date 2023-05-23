@@ -41,7 +41,7 @@ const numberOfQuestions = ref(null);
 const notifications = ref([]);
 const players = ref();
 
-const time = ref(10000);  // prod : 30000
+const time = ref(30000);  // prod : 30000
 
 const quizAnswerRef = ref(null);
 
