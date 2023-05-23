@@ -63,7 +63,7 @@ const sortPlayers = computed(() => {
   &__column {
     @include d-flex-center;
     flex-flow: column nowrap;
-    width: 25%;
+    width: 30%;
 
     &>p {
       margin-top: 13px;
@@ -205,6 +205,14 @@ const sortPlayers = computed(() => {
 
   100% {
     transform: translateX(0)
+  }
+}
+
+@media (min-width: 800px) {
+  .game-final-score {
+    &__column {
+      width: 25%;
+    }
   }
 }
 </style>

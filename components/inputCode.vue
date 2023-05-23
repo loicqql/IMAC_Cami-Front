@@ -2,21 +2,9 @@
   <div class="input-code">
     <label class="input-code__label" :for="name">{{ label }}</label>
     <div class="input-code__wrapper" @click="$event.target.firstChild.focus()">
-      <input
-        v-for="index in digitCount"
-        :key="index"
-        class="input-code__input"
-        type="number"
-        :name="name + '-' + index"
-        :id="name + '-' + index"
-        :value="digitsFromValue[index - 1]"
-        @click.stop
-        @input="handleInput($event, index - 1)"
-        @paste.prevent="handlePaste"
-        :required="required"
-        :placeholder="index"
-         inputmode="decimal"
-      />
+      <input v-for="index in digitCount" :key="index" class="input-code__input" type="number" :name="name + '-' + index"
+        :id="name + '-' + index" :value="digitsFromValue[index - 1]" @click.stop @input="handleInput($event, index - 1)"
+        @paste.prevent="handlePaste" :required="required" :placeholder="index" inputmode="decimal" />
     </div>
   </div>
 </template>
@@ -59,9 +47,8 @@ function handleInput(event, digitId) {
     newVal = newVal.substr(0, digitId) + '_' + newVal.substr(digitId + 1);
   else
     newVal = newVal.substr(0, digitId) + event.data + newVal.substr(digitId + 1);
-  // console.log(this.concatDigits());
   emit('update:modelValue', newVal);
-  if(event.target.nextSibling)
+  if (event.target.nextSibling)
     event.target.nextSibling.focus();
 }
 
@@ -110,6 +97,7 @@ const digitsFromValue = computed(() => {
     border-radius: 5px;
     -moz-appearance: textfield;
     border: none;
+
     &:focus {
       box-shadow: 0 0 0 0.1rem $y-secondary-2;
     }
@@ -129,6 +117,7 @@ const digitsFromValue = computed(() => {
     border-radius: 5px;
     background-color: $y-secondary;
     transition: 0.2s;
+
     &:focus {
       box-shadow: 0 0 0 0.2rem $y-secondary-2;
     }
@@ -138,12 +127,15 @@ const digitsFromValue = computed(() => {
 .invalid.input-code__wrapper {
   border: solid 1px var(--error-color);
 }
+
 .invalid .input-code__input::placeholder {
   color: var(--light-error-color) !important;
 }
+
 .invalid .input-code__input:focus {
   box-shadow: 0 0 0 0.2rem var(--light-error-color);
 }
+
 .input-code__input::-webkit-inner-spin-button,
 .input-code__input::-webkit-outer-spin-button {
   -webkit-appearance: none;

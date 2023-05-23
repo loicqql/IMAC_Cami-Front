@@ -146,6 +146,7 @@ onMounted(() => {
   display: flex;
   background-color: $gray;
   height: 100vh;
+  flex-flow: column nowrap;
 
   &__game {
     padding: 20px;
@@ -159,7 +160,7 @@ onMounted(() => {
     transition: 0.3s ease-in-out;
 
     &--gameboard-visible {
-      width: calc(75% - 14px);
+      width: calc(100% - 14px);
     }
   }
 
@@ -172,7 +173,7 @@ onMounted(() => {
     transition: 0.3s ease-in-out;
 
     &--visible {
-      width: calc(25% - 14px);
+      width: calc(100% - 14px);
       margin: 10px 7px;
     }
   }
@@ -216,6 +217,24 @@ onMounted(() => {
       background-color: $y-secondary;
       border-radius: 7px;
       margin: 10px 0;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .play {
+    flex-flow: row nowrap;
+
+    &__game {
+      &--gameboard-visible {
+        width: calc(75% - 14px);
+      }
+    }
+
+    &__gameboard {
+      &--visible {
+        width: calc(25% - 14px);
+      }
     }
   }
 }

@@ -27,7 +27,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 800px;
+    width: 80%;
   }
+}
+
+@media (min-width: 850px) {
+  .index {
+    &__gameparams {
+      width: 800px;
+    }
+  }
+
 }
 </style>

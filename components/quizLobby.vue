@@ -30,10 +30,6 @@
       </div>
     </div>
 
-    <div class="lobby__link">
-
-    </div>
-
   </div>
 
   <!-- TO DO disable button ready when everyone is ready -->
@@ -121,10 +117,8 @@ onMounted(async () => {
   }
 
   &__wrapper {
-    width: 800px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    width: 100%;
+    @include d-flex-center;
     flex-flow: row wrap;
     overflow-y: scroll;
     height: 500px;
@@ -135,7 +129,8 @@ onMounted(async () => {
     position: relative;
     margin: 10px;
     padding: 20px;
-    width: calc(33.3% - 30px);
+    aspect-ratio: 1;
+    min-width: 172px;
     border: 2px solid $y-secondary;
     transition: 0.3s ease-in-out;
     border-radius: 10px;
@@ -173,13 +168,6 @@ onMounted(async () => {
     &--ready {
       opacity: 1;
     }
-  }
-
-  &__link {
-    width: calc(25% - 14px);
-    margin: 10px 7px;
-    background-color: #fff;
-    border-radius: 10px;
   }
 
   &__countdown {

@@ -61,7 +61,7 @@ const emit = defineEmits(['answer']);
 
 <style lang="scss" scoped>
 .quiz-answer {
-  width: 600px;
+  width: 100%;
   @include d-flex-center;
   flex-flow: column nowrap;
 
@@ -186,6 +186,12 @@ const emit = defineEmits(['answer']);
 
   100% {
     transform: translate(1px, -2px);
+  }
+}
+
+@media (min-width: 600px) {
+  .quiz-answer {
+    width: 600px;
   }
 }
 </style>

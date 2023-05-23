@@ -44,17 +44,18 @@ async function create() {
   background-color: #fff;
   border-radius: 10px;
   @include d-flex-center;
+  flex-flow: column wrap;
   overflow: hidden;
 
   &__wrapper {
-    width: 67%;
+    width: 100%;
     height: 100%;
   }
 
   &__create {
     width: 100%;
     height: 100%;
-    padding: 40px 50px;
+    padding: 20px;
 
     &>div {
       padding: 0 20px;
@@ -92,13 +93,31 @@ async function create() {
   }
 
   &__join {
-    width: 33%;
+    width: 100%;
     height: 100%;
     border-left: 2px solid $y-secondary;
 
     &>div {
       width: 100%;
       height: 100%;
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  .game-params {
+    flex-flow: row nowrap;
+
+    &__wrapper {
+      width: 67%;
+    }
+
+    &__create {
+      padding: 40px 50px;
+    }
+
+    &__join {
+      width: 33%;
     }
   }
 }
