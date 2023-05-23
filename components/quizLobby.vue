@@ -29,7 +29,7 @@
         {{ countdown }}
       </div>
     </div>
-
+    <img class="lobby__share" src="/share.svg" alt="Vous pouvez donner le lien de cette page à vos amis" />
   </div>
 
   <!-- TO DO disable button ready when everyone is ready -->
@@ -182,6 +182,23 @@ onMounted(async () => {
     opacity: 0.9;
     font-weight: $bold-font-weight;
     color: $y-primary;
+  }
+
+  &__share {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 700px) {
+  .lobby {
+    &__share {
+      width: 25%;
+    }
   }
 }
 </style>

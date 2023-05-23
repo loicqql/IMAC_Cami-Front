@@ -5,7 +5,7 @@
 
       <div class="play__wrapper">
         <div :class="['play__loading', question ? '' : 'play__loading--visible']">
-          <p>Question Todo</p>
+          <p>Chargement de la question ...</p>
         </div>
 
         <quizAnswer ref="quizAnswerRef" :backdrop="question?.value" @answer="id => handleSubmit(id)" :answer="answer" />
@@ -189,10 +189,14 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     z-index: 10;
-    background-color: #fff;
+    background-color: $y-secondary;
     @include d-flex-center;
     transition: 0.4s ease-in-out;
     transform: translateY(-100%);
+
+    p {
+      font-family: 'Courgette', cursive;
+    }
 
     &--visible {
       transform: translateY(0);
