@@ -37,7 +37,7 @@ export default defineNuxtConfig({
     sockets: [{
       name: 'main',
       default: true,
-      url: 'http://localhost:5000'
+      url: 'https://camiback.loicquinquenel.fr'
     }]
   }
 })
