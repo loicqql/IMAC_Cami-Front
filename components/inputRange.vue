@@ -1,53 +1,52 @@
 <template>
   <div class="input-range">
     <div class="input-range__wrapper">
-      <input class="input-range__input" @input="handleInput($event.target.value)" :value="val" type="range" :min="min" :max="max">
+      <input class="input-range__input" @input="handleInput($event.target.value)" :value="val" type="range" :min="min"
+        :max="max">
     </div>
     <div class="input-range__number">
-      <span class="" :style="{'--left': (props.val - props.min) / (props.max - props.min) * 100 + '%'}">{{ val }}</span>
+      <span class="" :style="{ '--left': (props.val - props.min) / (props.max - props.min) * 100 + '%' }">{{ val }}</span>
     </div>
-
   </div>
-
 </template>
 
 <script setup>
 
-  const props = defineProps({
-    val: {
-      type: Number,
-      required: true,
-    },
-    min: {
-      type: Number,
-      required: true
-    },
-    max: {
-      type: Number,
-      required: true
-    },
-    step: {
-      type: Number,
-      default: 1
-    }
-  });
-
-  const emit = defineEmits(['update:val']);
-
-  function handleInput(event) {
-    emit('update:val', parseInt(event));
+const props = defineProps({
+  val: {
+    type: Number,
+    required: true,
+  },
+  min: {
+    type: Number,
+    required: true
+  },
+  max: {
+    type: Number,
+    required: true
+  },
+  step: {
+    type: Number,
+    default: 1
   }
+});
+
+const emit = defineEmits(['update:val']);
+
+function handleInput(event) {
+  emit('update:val', parseInt(event));
+}
 
 </script>
 
 <style lang="scss" scoped>
-
 .input-range {
   position: relative;
   padding-bottom: 20px;
 
   &__wrapper {
     position: relative;
+
     @mixin circle {
       content: '';
       position: absolute;
@@ -126,6 +125,7 @@
     width: calc(100% - 40px);
     height: 15px;
     margin-left: 17px;
+
     span {
       position: absolute;
       transform: translateY(20px);

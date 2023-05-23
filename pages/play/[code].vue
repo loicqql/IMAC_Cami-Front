@@ -3,15 +3,12 @@
 
     <div :class="['play__game', players ? 'play__game--gameboard-visible' : '']">
 
-      {{ questionNumber }}
-      {{ numberOfQuestions }}
-
       <div class="play__wrapper">
         <div :class="['play__loading', question ? '' : 'play__loading--visible']">
           <p>Question Todo</p>
         </div>
 
-        <quizAnswer :backdrop="question?.value" @answer="id => handleSubmit(id)" :answer="answer" />
+        <quizAnswer ref="quizAnswerRef" :backdrop="question?.value" @answer="id => handleSubmit(id)" :answer="answer" />
 
         <!-- <p :class="answer ? '' : 'invisible'"> {{ answer ? answer : ' ' }}</p> -->
         <buttonSubmit :class="host && answer ? '' : 'invisible'" label="Next" @click="nextQuestion"
@@ -26,7 +23,10 @@
     <div :class="['play__gameboard', players ? 'play__gameboard--visible' : '']">
       <gameLeaderBoard v-if="players" :players="players" />
     </div>
-    <p v-if="notification" class="notification"> {{ notification }}</p>
+    <div class="notifications">
+      <p v-for="(notification, index) in notifications" class="notification" :key="index"> {{ notification.value }}</p>
+    </div>
+
   </div>
 </template>
 
@@ -38,10 +38,12 @@ const question = ref();
 const answer = ref();
 const questionNumber = ref(0);
 const numberOfQuestions = ref(null);
-const notification = ref();
+const notifications = ref([]);
 const players = ref();
 
 const time = ref(10000);  // prod : 30000
+
+const quizAnswerRef = ref(null);
 
 // const players = ref([
 //   {
@@ -86,7 +88,13 @@ function nextQuestion() {
 async function handleSubmit(id) {
   const socket = useSocket();
   let res = await socket.emitP('answerQuestion', { code: route.params.code, questionNumber: questionNumber.value, answer: id, idUser: localStorage.getItem('idUser') });
-  console.log(res); // true or false;
+  if (!res) { // true or false;
+    quizAnswerRef.value.cleanInput();
+    quizAnswerRef.value.shakeInput();
+  } else {
+    quizAnswerRef.value.disableInput();
+  }
+
 }
 
 onMounted(() => {
@@ -101,10 +109,15 @@ onMounted(() => {
     question.value = data.question;
     questionNumber.value = data.questionNumber;
     numberOfQuestions.value = data.numberOfQuestions;
+    quizAnswerRef.value.activateInput();
   });
 
   socket.on('notification', (data) => {
-    notification.value = data;
+    let id = notifications.value.length;
+    notifications.value.push({ id: id, value: data });
+    setTimeout(() => {
+      notifications.value = notifications.value.filter(notif => notif.id != id);
+    }, 2000);
   });
 
   socket.on('updateScore', (data) => {
@@ -114,6 +127,7 @@ onMounted(() => {
   socket.on('answer', (data) => {
     clearTimeout(timeoutEndQuestion.value);
     answer.value = data;
+    quizAnswerRef.value.cleanInput();
   });
 
   socket.on('clear', () => {
@@ -188,10 +202,21 @@ onMounted(() => {
     transition: 0.01s ease-in-out 0.4s;
   }
 
-  .notification {
+  .notifications {
     position: absolute;
     top: 20px;
     left: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    p {
+      padding: 10px 15px;
+      border: 2px solid $y-primary;
+      background-color: $y-secondary;
+      border-radius: 7px;
+      margin: 10px 0;
+    }
   }
 }
 </style>

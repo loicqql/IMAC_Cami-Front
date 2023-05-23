@@ -1,6 +1,7 @@
 <template>
   <div class="game-leader-board">
-    <userScore class="game-leader-board__user" v-for="(player, index) in sortPlayers" :key="index" :user="player.user" :user-score="player.score"/>
+    <userScore class="game-leader-board__user" v-for="(player, index) in sortPlayers" :key="index" :user="player.user"
+      :user-score="player.score" />
   </div>
 </template>
 
@@ -17,14 +18,13 @@ const props = defineProps({
 
 const sortPlayers = computed(() => {
   return props.players.sort((a, b) => {
-    return a.score < b.score;
+    return a.score < b.score ? 1 : -1;
   })
 })
 
 </script>
 
 <style lang="scss" scoped>
-
 .game-leader-board {
   padding: 20px 30px;
   display: flex;
@@ -37,5 +37,4 @@ const sortPlayers = computed(() => {
     margin: 10px 0;
   }
 }
-
 </style>

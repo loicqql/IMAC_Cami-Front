@@ -58,6 +58,19 @@ function push() {
 
 <style lang="scss" scoped>
 .input-genres {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 2px;
+    background-color: $y-secondary-2;
+    height: 70%;
+  }
+
   &__bullets {
     width: 100%;
     overflow-x: scroll;

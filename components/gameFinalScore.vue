@@ -37,9 +37,15 @@ const props = defineProps({
 });
 
 const sortPlayers = computed(() => {
-  return props.players.sort((a, b) => {
-    return a.score < b.score ? 1 : -1;
-  })
+  if (props.players.length == 2) { // ?
+    return props.players.sort((a, b) => {
+      return a.score > b.score ? 1 : -1;
+    })
+  } else {
+    return props.players.sort((a, b) => {
+      return a.score < b.score ? 1 : -1;
+    })
+  }
 })
 
 </script>

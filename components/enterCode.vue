@@ -1,13 +1,11 @@
 <template>
-  <div class="enter-code col-10 col-md-5 col-xl-3">
+  <div class="enter-code">
     <h2 class="enter-code__title">Jouer</h2>
     <div class="enter-code__container">
       <p class="enter-code__text">Entrez un code pour <strong>commencer le jeu.</strong></p>
       <inputCode type="text" name="code" label="Code" required v-model="code" />
-      <buttonSubmit label="Jouer" :icon="{ name: 'play_arrow', theme: 'outlined' }" @click="handleSubmit" />
-      <!-- <p class="enter-code__text enter-code__text--bottom">Créer son propre quiz
-        <inputLink text="ici" to="/quiz/add" />
-      </p> -->
+      <buttonSubmit class="enter-code__button" label="Jouer" :icon="{ name: 'play_arrow', theme: 'outlined' }"
+        @click="handleSubmit" />
       <p class="error">{{ error }}</p>
     </div>
   </div>
@@ -21,18 +19,12 @@ const error = ref('');
 
 async function handleSubmit() {
   if (code.value) {
-    try {
-      // await this.$axios.$get(`/api/quiz/${code.value}`);
-      // this.$router.push(`/play/${code.value}`);
-    } catch (err) {
-      // error.value= err?.response?.data?.error;
-    }
+    navigateTo(`/lobby/${code.value}`);
   }
 }
 </script>
 <style lang="scss" scoped>
 .enter-code {
-  height: 390px;
 
   &__title {
     height: 70px;
@@ -44,7 +36,7 @@ async function handleSubmit() {
   }
 
   &__container {
-    padding: 0 50px;
+    padding: 20px 50px;
   }
 
   &__text {
@@ -65,13 +57,13 @@ async function handleSubmit() {
     }
   }
 
-  .quiz-button {
-    padding: 30px 0;
+  &__button {
+    padding: 35px 0;
   }
+}
 
-  .error {
-    margin-top: 10px;
-    text-align: center;
-  }
+.error {
+  margin-top: 10px;
+  text-align: center;
 }
 </style>

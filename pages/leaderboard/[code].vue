@@ -1,11 +1,10 @@
 <template>
   <div class="leaderboard">
-
-    <gameFinalScore v-if="players" :class="revealScore ? 'reveal' : ''" :players="players" />
-
+    <div class="leaderboard__wrapper" v-if="players">
+      <gameFinalScore :class="revealScore ? 'reveal' : ''" :players="players" />
+      <buttonSubmit v-if="button" class="leaderboard__button" label="Home" @click="navigateTo('/')" />
+    </div>
     <p v-else>En attente de résultats</p>
-
-
   </div>
 </template>
 
@@ -15,6 +14,8 @@ const route = useRoute();
 
 const players = ref(null);
 const revealScore = ref(false);
+
+const button = ref(false);
 
 onMounted(() => {
   const socket = useSocket();
@@ -30,6 +31,10 @@ onMounted(() => {
     setTimeout(() => {
       revealScore.value = true;
     }, 1000);
+
+    setTimeout(() => {
+      button.value = true;
+    }, 5000);
   });
 
 
@@ -38,5 +43,19 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.leaderboard {}
+.leaderboard {
+  @include d-flex-center;
+
+  &__wrapper {
+    @include d-flex-center;
+    width: 100%;
+  }
+
+  &__button {
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
 </style>

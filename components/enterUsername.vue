@@ -1,10 +1,11 @@
 <template>
-  <div class="enter-code col-10 col-md-5 col-xl-3">
+  <div class="enter-code">
     <div class="enter-code__container">
       <userAvatar />
       <p class="enter-code__text">Entrez un pseudo</p>
       <inputText type="text" name="username" label="Pseudo" required v-model:val="username" />
-      <buttonSubmit label="Valider" :icon="{ name: 'play_arrow', theme: 'outlined' }" @click="handleSubmit" />
+      <buttonSubmit class="enter-code__button" label="Valider" :icon="{ name: 'play_arrow', theme: 'outlined' }"
+        @click="handleSubmit" />
       <p class="error">{{ error }}</p>
     </div>
   </div>
@@ -45,10 +46,14 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 .enter-code {
-  height: 390px;
+  width: 275px;
+  background-color: #fff;
+  border-radius: 10px;
 
   &__container {
-    padding: 0 50px;
+    padding: 10px 25px;
+    @include d-flex-center;
+    flex-flow: column nowrap
   }
 
   &__text {
@@ -67,6 +72,11 @@ onMounted(() => {
       text-align: left;
       font-weight: $semi-bold-font-weight;
     }
+  }
+
+  &__button {
+    margin-top: 15px;
+    width: 100%;
   }
 
   .quiz-button {

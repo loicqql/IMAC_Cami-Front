@@ -34,6 +34,14 @@
 </template>
 
 <script setup>
+definePageMeta({
+  middleware: [
+    function () {
+      return navigateTo('/');
+    },
+  ]
+});
+
 import { ref, onMounted } from 'vue';
 
 const valR = ref(4);

@@ -2,8 +2,9 @@
   <div class="quiz-search">
     <form class="quiz-search__form" @submit.prevent="() => { }">
       <div class="quiz-search__select">
-        <input type="text" v-model="val" placeholder="Votre réponse" @input="handleInput"
-          @click="() => inputActive = true" @keyup.up="keyboardIndex <= 0 ? keyboardIndex : keyboardIndex--"
+        <input :class="[disabled ? 'disabled' : '']" type="text" v-model="val" placeholder="Votre réponse"
+          @input="handleInput" @click="() => inputActive = true"
+          @keyup.up="keyboardIndex <= 0 ? keyboardIndex : keyboardIndex--"
           @keyup.down="keyboardIndex < options.length - 1 ? keyboardIndex++ : keyboardIndex = 0"
           @keyup.enter="handleClick(options[keyboardIndex != -1 ? keyboardIndex : 0].id)" />
         <div class="answers" v-if="val.length > 0 && inputActive">
@@ -28,6 +29,12 @@ const options = ref([]);
 
 const emit = defineEmits(['answer']);
 
+const props = defineProps({
+  disabled: {
+    type: Boolean
+  }
+});
+
 function handleClick(id) {
   inputActive.value = false;
   selected.value = options.value.filter(opt => opt.id == id)[0];
@@ -36,6 +43,17 @@ function handleClick(id) {
   pushAnswer();
 }
 
+function clean() {
+  val.value = '';
+  selected.value = '';
+  inputActive.value = true;
+  keyboardIndex.value = -1
+  options.value = [];
+}
+
+defineExpose({
+  clean
+});
 
 function pushAnswer() {
   if (selected.value.id) {
@@ -44,10 +62,14 @@ function pushAnswer() {
 }
 
 async function handleInput() {
-  inputActive.value = true;
-  if (val.value != '') {
-    let res = await $fetch('/api/tmdb/search/movie', { params: { query: val.value } });
-    options.value = res.slice(0, 6);
+  if (!props.disabled) {
+    inputActive.value = true;
+    if (val.value != '') {
+      let res = await $fetch('/api/tmdb/search/movie', { params: { query: val.value } });
+      options.value = res.slice(0, 6);
+    }
+  } else {
+    val.value = '';
   }
 }
 
@@ -114,6 +136,10 @@ async function handleInput() {
     // &:focus {
     //   box-shadow: 0 0 0 0.1rem $y-secondary-2;
     // }
+  }
+
+  .disabled {
+    cursor: not-allowed;
   }
 
   .answers {

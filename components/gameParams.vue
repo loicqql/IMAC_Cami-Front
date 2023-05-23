@@ -1,17 +1,18 @@
 <template>
   <div class="game-params">
-    <div class="game-params__create">
-      <h1>Créer un quiz</h1>
-      <div>
-        <h2>Nombre de questions</h2>
-        <!-- themes -->
-        <inputRange class="game-params__input-range" v-model:val="nbQuestions" :min="1" :max="15" />
-        <inputGenres @filterGenres="(e) => filterGenres = e" />
-        <div class="game-params__submit">
-          <loader :class="['game-params__loader', launched ? '' : 'invisible']" />
-          <buttonSubmit label="Lancer" :icon="{ name: 'play_arrow', theme: 'outlined' }" @click="create" />
+    <div class="game-params__wrapper">
+      <div class="game-params__create">
+        <h1>Créer un quiz</h1>
+        <div>
+          <h2>Nombre de questions</h2>
+          <inputRange class="game-params__input-range" v-model:val="nbQuestions" :min="1" :max="15" />
+          <h2>Genres</h2>
+          <inputGenres class="game-params__input-genres" @filterGenres="(e) => filterGenres = e" />
+          <div class="game-params__submit">
+            <loader :class="['game-params__loader', launched ? '' : 'invisible']" />
+            <buttonSubmit label="Lancer" :icon="{ name: 'play_arrow', theme: 'outlined' }" @click="create" />
+          </div>
         </div>
-        {{ filterGenres }}
       </div>
     </div>
     <div class="game-params__join">
@@ -45,8 +46,13 @@ async function create() {
   @include d-flex-center;
   overflow: hidden;
 
-  &__create {
+  &__wrapper {
     width: 67%;
+    height: 100%;
+  }
+
+  &__create {
+    width: 100%;
     height: 100%;
     padding: 40px 50px;
 
@@ -67,7 +73,11 @@ async function create() {
   }
 
   &__input-range {
-    margin: 30px 0;
+    margin-top: 30px;
+  }
+
+  &__input-genres {
+    margin-bottom: 10px;
   }
 
   &__submit {
