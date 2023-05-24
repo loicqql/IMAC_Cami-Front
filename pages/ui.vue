@@ -2,8 +2,6 @@
   <div class="ui">
     <inputRange v-model:val="valR" :min="1" :max="9" />
     {{ valR }}
-    <inputSelect v-model:val="valS" />
-    {{ valS }}
 
     <inputCheckbox v-model:val="valC" name="check" />
     {{ valC }}
@@ -45,7 +43,6 @@ definePageMeta({
 import { ref, onMounted } from 'vue';
 
 const valR = ref(4);
-const valS = ref('');
 const valC = ref(false);
 const code = ref();
 const gameFinalScoreTest = ref(false);
